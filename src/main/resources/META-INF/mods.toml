@@ -6,7 +6,7 @@ authors="bl4ckscor3"
 
 [[mods]] #mandatory
 modId="cookieblock" #mandatory
-version="v1.1" #mandatory
+version="v1.2" #mandatory
 displayName="Cookie Block" #mandatory
 description='''A cookie block.''' #mandatory
 
