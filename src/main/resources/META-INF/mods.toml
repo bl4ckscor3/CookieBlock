@@ -1,5 +1,5 @@
 modLoader="javafml" #mandatory
-loaderVersion="[31,)" #mandatory
+loaderVersion="[32,)" #mandatory
 issueTrackerURL="https://github.com/bl4ckscor3/CookieBlock/issues"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/cookie-block"
 authors="bl4ckscor3"
@@ -13,13 +13,13 @@ description='''A cookie block.''' #mandatory
 [[dependencies.cookieblock]]
     modId="forge"
     mandatory=true
-    versionRange="[31,)"
+    versionRange="[32,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.cookieblock]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.15,1.16)"
+    versionRange="[1.16,1.17)"
     ordering="NONE"
     side="BOTH"
