@@ -29,7 +29,7 @@ public class CookieBlock
 	@SubscribeEvent
 	public static void registerBlock(RegistryEvent.Register<Block> event)
 	{
-		event.getRegistry().register(new Block(Block.Properties.create(Material.EARTH).hardnessAndResistance(0.25F)) {
+		event.getRegistry().register(new Block(Block.Properties.of(Material.DIRT).strength(0.25F)) {
 			@Override
 			public SoundType getSoundType(BlockState state)
 			{
@@ -47,6 +47,6 @@ public class CookieBlock
 	@SubscribeEvent
 	public static void registerItem(RegistryEvent.Register<Item> event)
 	{
-		event.getRegistry().register(new BlockItem(COOKIE_BLOCK, new Item.Properties().group(ItemGroup.FOOD).food(new Food.Builder().hunger(18).saturation(0.9F).build())).setRegistryName(COOKIE_BLOCK.getRegistryName()));
+		event.getRegistry().register(new BlockItem(COOKIE_BLOCK, new Item.Properties().tab(ItemGroup.TAB_FOOD).food(new Food.Builder().nutrition(18).saturationMod(0.9F).build())).setRegistryName(COOKIE_BLOCK.getRegistryName()));
 	}
 }
