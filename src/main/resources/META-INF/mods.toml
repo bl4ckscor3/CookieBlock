@@ -1,26 +1,26 @@
-modLoader="javafml" #mandatory
-loaderVersion="[33,)" #mandatory
-license="GNU GPL v3.0 https://github.com/bl4ckscor3/CookieBlock/blob/1.16/LICENSE"
+modLoader="javafml"
+loaderVersion="[37,)"
+license="GNU GPL v3.0 https://github.com/bl4ckscor3/CookieBlock/blob/1.17/LICENSE"
 issueTrackerURL="https://github.com/bl4ckscor3/CookieBlock/issues"
-displayURL="https://www.curseforge.com/minecraft/mc-mods/cookie-block"
-authors="bl4ckscor3"
 
-[[mods]] #mandatory
-modId="cookieblock" #mandatory
-version="v1.2" #mandatory
-displayName="Cookie Block" #mandatory
-description='''A cookie block.''' #mandatory
+[[mods]]
+	modId="cookieblock"
+	version="${file.jarVersion}"
+	displayName="Cookie Block"
+	description='''A cookie block.'''
+	displayURL="https://www.curseforge.com/minecraft/mc-mods/cookie-block"
+	authors="bl4ckscor3"
 
 [[dependencies.cookieblock]]
     modId="forge"
     mandatory=true
-    versionRange="[33,)"
+    versionRange="[37,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.cookieblock]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.16,1.17)"
+    versionRange="[1.17,1.18)"
     ordering="NONE"
     side="BOTH"
