@@ -1,16 +1,12 @@
 package bl4ckscor3.mod.cookieblock;
 
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.Material;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.LevelReader;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -29,19 +25,7 @@ public class CookieBlock
 	@SubscribeEvent
 	public static void registerBlock(RegistryEvent.Register<Block> event)
 	{
-		event.getRegistry().register(new Block(Block.Properties.of(Material.DIRT).strength(0.25F)) {
-			@Override
-			public SoundType getSoundType(BlockState state)
-			{
-				return SoundType.STONE;
-			}
-
-			@Override
-			public SoundType getSoundType(BlockState state, LevelReader world, BlockPos pos, Entity entity)
-			{
-				return SoundType.STONE;
-			}
-		}.setRegistryName(MODID, MODID));
+		event.getRegistry().register(new Block(Block.Properties.of(Material.STONE).strength(0.25F).sound(SoundType.STONE)).setRegistryName(MODID, MODID));
 	}
 
 	@SubscribeEvent
