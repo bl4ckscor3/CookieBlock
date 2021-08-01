@@ -1,16 +1,16 @@
 package bl4ckscor3.mod.cookieblock;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Food;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorldReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.LevelReader;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -37,7 +37,7 @@ public class CookieBlock
 			}
 
 			@Override
-			public SoundType getSoundType(BlockState state, IWorldReader world, BlockPos pos, Entity entity)
+			public SoundType getSoundType(BlockState state, LevelReader world, BlockPos pos, Entity entity)
 			{
 				return SoundType.STONE;
 			}
@@ -47,6 +47,6 @@ public class CookieBlock
 	@SubscribeEvent
 	public static void registerItem(RegistryEvent.Register<Item> event)
 	{
-		event.getRegistry().register(new BlockItem(COOKIE_BLOCK, new Item.Properties().tab(ItemGroup.TAB_FOOD).food(new Food.Builder().nutrition(18).saturationMod(0.9F).build())).setRegistryName(COOKIE_BLOCK.getRegistryName()));
+		event.getRegistry().register(new BlockItem(COOKIE_BLOCK, new Item.Properties().tab(CreativeModeTab.TAB_FOOD).food(new FoodProperties.Builder().nutrition(18).saturationMod(0.9F).build())).setRegistryName(COOKIE_BLOCK.getRegistryName()));
 	}
 }
