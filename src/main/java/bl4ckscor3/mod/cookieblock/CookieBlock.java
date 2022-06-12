@@ -7,30 +7,27 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.Material;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
-import net.minecraftforge.registries.ObjectHolder;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 @Mod(CookieBlock.MODID)
 @EventBusSubscriber(bus=Bus.MOD)
 public class CookieBlock
 {
 	public static final String MODID = "cookieblock";
-	@ObjectHolder(MODID + ":" + MODID)
-	public static final Block COOKIE_BLOCK = null;
+	public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
+	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
+	public static final RegistryObject<Block> COOKIE_BLOCK = BLOCKS.register(MODID, () -> new Block(Block.Properties.of(Material.STONE).strength(0.25F).sound(SoundType.STONE)));
+	public static final RegistryObject<BlockItem> COOKIE_BLOCK_ITEM = ITEMS.register(MODID, () -> new BlockItem(COOKIE_BLOCK.get(), new Item.Properties().tab(CreativeModeTab.TAB_FOOD).food(new FoodProperties.Builder().nutrition(18).saturationMod(0.9F).build())));
 
-	@SubscribeEvent
-	public static void registerBlock(RegistryEvent.Register<Block> event)
+	public CookieBlock()
 	{
-		event.getRegistry().register(new Block(Block.Properties.of(Material.STONE).strength(0.25F).sound(SoundType.STONE)).setRegistryName(MODID, MODID));
-	}
-
-	@SubscribeEvent
-	public static void registerItem(RegistryEvent.Register<Item> event)
-	{
-		event.getRegistry().register(new BlockItem(COOKIE_BLOCK, new Item.Properties().tab(CreativeModeTab.TAB_FOOD).food(new FoodProperties.Builder().nutrition(18).saturationMod(0.9F).build())).setRegistryName(COOKIE_BLOCK.getRegistryName()));
+		BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
+		ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
 	}
 }
