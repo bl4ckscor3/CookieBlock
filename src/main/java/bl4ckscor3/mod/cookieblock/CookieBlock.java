@@ -16,17 +16,15 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 @Mod(CookieBlock.MODID)
-@EventBusSubscriber(bus=Bus.MOD)
-public class CookieBlock
-{
+@EventBusSubscriber(bus = Bus.MOD)
+public class CookieBlock {
 	public static final String MODID = "cookieblock";
 	public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
 	public static final RegistryObject<Block> COOKIE_BLOCK = BLOCKS.register(MODID, () -> new Block(Block.Properties.of(Material.STONE).strength(0.25F).sound(SoundType.STONE)));
 	public static final RegistryObject<BlockItem> COOKIE_BLOCK_ITEM = ITEMS.register(MODID, () -> new BlockItem(COOKIE_BLOCK.get(), new Item.Properties().tab(CreativeModeTab.TAB_FOOD).food(new FoodProperties.Builder().nutrition(18).saturationMod(0.9F).build())));
 
-	public CookieBlock()
-	{
+	public CookieBlock() {
 		BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
 		ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
 	}
