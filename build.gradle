@@ -11,16 +11,17 @@ buildscript {
 
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
+apply from: 'https://raw.githubusercontent.com/SizableShrimp/ForgeUpdatesRemapper/main/remapper.gradle'
 
 version = '1.2'
 group = 'bl4ckscor3.mod.cookieblock'
-archivesBaseName = 'cookieblock-1.19'
+archivesBaseName = 'cookieblock-1.19.3'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 
 minecraft {
-    mappings channel: 'official', version: '1.19'
+    mappings channel: 'official', version: '1.19.3'
 	
     runs {
         client {
@@ -50,7 +51,7 @@ minecraft {
 
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.19-41.0.17'
+    minecraft 'net.minecraftforge:forge:1.19.3-44.0.6'
 }
 
 jar {
