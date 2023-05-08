@@ -11,7 +11,7 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 
-version = '1.2'
+version = '1.2.1'
 group = 'bl4ckscor3.mod.cookieblock'
 archivesBaseName = 'cookieblock-1.18.2'
 
