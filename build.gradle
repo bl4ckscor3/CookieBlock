@@ -1,67 +1,73 @@
-buildscript {
-    repositories {
-        maven { url = 'https://files.minecraftforge.net/maven' }
-        mavenCentral()
-    }
-	
-    dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
-    }
+plugins {
+  alias(libs.plugins.architectury.plugin)
+  alias(libs.plugins.architectury.loom).apply(false)
 }
 
-apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'eclipse'
-apply from: 'https://raw.githubusercontent.com/SizableShrimp/ForgeUpdatesRemapper/main/remapper.gradle'
+architectury {
+  minecraft = libs.versions.minecraft.get()
+}
 
-version = '1.2'
-group = 'bl4ckscor3.mod.cookieblock'
-archivesBaseName = 'cookieblock-1.19.3'
+subprojects {
+  apply plugin: libs.plugins.architectury.loom.get().pluginId
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
-println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
+  loom {
+    silentMojangMappingsLicense()
+  }
 
-minecraft {
-    mappings channel: 'official', version: '1.19.3'
-	
-    runs {
-        client {
-            workingDirectory project.file('run/client')
-            property 'forge.logging.console.level', 'debug'
+  dependencies {
+    // Minecraft
+    minecraft(libs.minecraft)
+    // Mappings
+    mappings(loom.officialMojangMappings())
+  }
 
-            mods {
-                cookieblock {
-                    source sourceSets.main
-                }
-            }
-        }
-
-        server {
-            workingDirectory project.file('run/server')
-            property 'forge.logging.console.level', 'debug'
-			args '-nogui'
-
-            mods {
-                cookieblock {
-                    source sourceSets.main
-                }
-            }
-        }
+  processResources {
+    project.properties.each {
+      inputs.property "${it.key}", "${it.value}"
     }
-}
 
-
-dependencies {
-    minecraft 'net.minecraftforge:forge:1.19.3-44.0.6'
-}
-
-jar {
+    filesMatching(['*.mixins.json', 'pack.mcmeta', 'META-INF/mods.toml', 'fabric.mod.json', 'architectury.common.json']) {
+      expand project.properties
+    }
+  }
+  jar {
     manifest {
-        attributes(["Specification-Title": "Cookie Block",
-                    "Specification-Vendor": "bl4ckscor3",
-                    "Specification-Version": "${version}",
-                    "Implementation-Title": "Cookie Block",
-                    "Implementation-Version": "${version}",
-                    "Implementation-Vendor" :"bl4ckscor3",
-                    "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")],)
+      attributes([
+        'Specification-Title'     : "${MOD_ID}",
+        'Specification-Vendor'    : "${MOD_AUTHOR}",
+        'Specification-Version'   : "${MINECRAFT_VERSION}",
+        'Implementation-Title'    : "${project.name}",
+        'Implementation-Version'  : "${project.version}",
+        'Implementation-Vendor'   : "${MOD_AUTHOR}",
+        'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+      ])
     }
+  }
+}
+
+allprojects {
+  apply plugin: "java"
+  apply plugin: "maven-publish"
+  apply plugin: libs.plugins.architectury.plugin.get().pluginId
+
+  archivesBaseName = MOD_ID + '-' + project.name
+  version = MOD_VERSION + '+' + libs.versions.minecraft.get()
+  group = MOD_GROUP + '.' + project.name
+
+  repositories {
+    // Add repositories to retrieve artifacts from in here.
+    // You should only use this when depending on other mods because
+    // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
+    // See https://docs.gradle.org/current/userguide/declaring_repositories.html
+    // for more information about repositories.
+  }
+
+  tasks.withType(JavaCompile).configureEach {
+    options.encoding = "UTF-8"
+    options.release.set(17)
+  }
+
+  java {
+    withSourcesJar()
+  }
 }
