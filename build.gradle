@@ -31,9 +31,18 @@ runs {
 		programArgument '-nogui'
     }
 }
+repositories {
+	maven {
+		url "https://cursemaven.com/"
+		content {
+			includeGroup "curse.maven"
+		}
+	}
+}
 
 dependencies {
-	implementation 'net.neoforged:neoforge:20.2.64-beta'
+	implementation 'net.neoforged:neoforge:20.2.86'
+	implementation "curse.maven:appleskin-248787:4850535"
 }
 
 tasks.named('jar', Jar).configure {
