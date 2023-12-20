@@ -11,30 +11,31 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.common.Mod.EventBusSubscriber;
-import net.neoforged.fml.common.Mod.EventBusSubscriber.Bus;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 @Mod(CookieBlock.MODID)
-@EventBusSubscriber(bus = Bus.MOD)
 public class CookieBlock {
 	public static final String MODID = "cookieblock";
 	public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MODID);
 	public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
 	public static final DeferredBlock<Block> COOKIE_BLOCK = BLOCKS.registerSimpleBlock(MODID, BlockBehaviour.Properties.of().strength(0.25F).sound(SoundType.STONE));
-	public static final DeferredItem<BlockItem> COOKIE_BLOCK_ITEM = ITEMS.registerSimpleBlockItem(COOKIE_BLOCK, new Item.Properties().food(new FoodProperties.Builder().nutrition(18).saturationMod(0.9F).build()));
+	public static final DeferredItem<BlockItem> COOKIE_BLOCK_ITEM = ITEMS.register(MODID, () -> new BlockItem(COOKIE_BLOCK.get(), new Item.Properties().food(new FoodProperties.Builder().nutrition(18).saturationMod(0.1F).build())) {
+		@Override
+		public int getUseDuration(ItemStack stack) {
+			return 192;
+		}
+	});
 
 	public CookieBlock(IEventBus modEventBus) {
 		BLOCKS.register(modEventBus);
 		ITEMS.register(modEventBus);
+		modEventBus.addListener(CookieBlock::onCreativeModeTabBuildContents);
 	}
 
-	@SubscribeEvent
 	public static void onCreativeModeTabBuildContents(BuildCreativeModeTabContentsEvent event) {
 		if (event.getTabKey() == CreativeModeTabs.FOOD_AND_DRINKS)
 			event.getEntries().putAfter(new ItemStack(Items.COOKIE), new ItemStack(COOKIE_BLOCK_ITEM.get()), TabVisibility.PARENT_AND_SEARCH_TABS);
