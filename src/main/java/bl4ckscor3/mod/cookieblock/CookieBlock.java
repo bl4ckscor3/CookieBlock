@@ -11,7 +11,9 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -26,7 +28,7 @@ public class CookieBlock {
 	public static final DeferredItem<BlockItem> COOKIE_BLOCK_ITEM = ITEMS.register(MODID, () -> new BlockItem(COOKIE_BLOCK.get(), new Item.Properties().food(new FoodProperties.Builder().nutrition(18).saturationMod(0.1F).build())) {
 		@Override
 		public int getUseDuration(ItemStack stack) {
-			return 192;
+			return ServerConfig.CONFIG.eatingSpeed.get();
 		}
 	});
 
@@ -34,6 +36,7 @@ public class CookieBlock {
 		BLOCKS.register(modEventBus);
 		ITEMS.register(modEventBus);
 		modEventBus.addListener(CookieBlock::onCreativeModeTabBuildContents);
+		ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ServerConfig.CONFIG_SPEC);
 	}
 
 	public static void onCreativeModeTabBuildContents(BuildCreativeModeTabContentsEvent event) {
