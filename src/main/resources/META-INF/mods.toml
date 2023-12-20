@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[46,)"
+loaderVersion="[47,)"
 license="MIT https://github.com/bl4ckscor3/CookieBlock/blob/1.20/LICENSE"
 issueTrackerURL="https://github.com/bl4ckscor3/CookieBlock/issues"
 
@@ -14,13 +14,13 @@ issueTrackerURL="https://github.com/bl4ckscor3/CookieBlock/issues"
 [[dependencies.cookieblock]]
     modId="forge"
     mandatory=true
-    versionRange="[46,)"
+    versionRange="[47,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.cookieblock]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.20,1.21)"
+    versionRange="[1.20.1,1.20.2)"
     ordering="NONE"
     side="BOTH"
