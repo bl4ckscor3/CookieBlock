@@ -10,7 +10,7 @@ version = '1.2.3'
 group = 'bl4ckscor3.mod.cookieblock'
 
 base {
-	archivesName = 'cookieblock-1.20.2'
+	archivesName = 'cookieblock-1.20.4'
 }
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
@@ -31,9 +31,18 @@ runs {
 		programArgument '-nogui'
     }
 }
+repositories {
+	maven {
+		url "https://cursemaven.com/"
+		content {
+			includeGroup "curse.maven"
+		}
+	}
+}
 
 dependencies {
-	implementation 'net.neoforged:neoforge:20.2.64-beta'
+	implementation 'net.neoforged:neoforge:20.4.11-beta'
+	implementation "curse.maven:appleskin-248787:4850535"
 }
 
 tasks.named('jar', Jar).configure {
