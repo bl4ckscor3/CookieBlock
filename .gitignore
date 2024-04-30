@@ -8,3 +8,5 @@
 /.settings
 *.launch
 .idea/
+
+src/generated/resources/.cache/
