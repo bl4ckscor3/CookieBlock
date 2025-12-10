@@ -24,8 +24,8 @@ public class CookieBlock {
 	public static final String MODID = "cookieblock";
 	public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MODID);
 	public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
-	public static final DeferredBlock<Block> COOKIE_BLOCK = BLOCKS.registerSimpleBlock(MODID, BlockBehaviour.Properties.of().strength(0.25F).sound(SoundType.STONE));
-	public static final DeferredItem<BlockItem> COOKIE_BLOCK_ITEM = ITEMS.registerSimpleBlockItem(COOKIE_BLOCK, new Item.Properties().food(new FoodProperties(18, FoodConstants.saturationByModifier(18, 0.1F), false), Consumables.defaultFood().consumeSeconds(9.6F).build()));
+	public static final DeferredBlock<Block> COOKIE_BLOCK = BLOCKS.registerSimpleBlock(MODID, () -> BlockBehaviour.Properties.of().strength(0.25F).sound(SoundType.STONE));
+	public static final DeferredItem<BlockItem> COOKIE_BLOCK_ITEM = ITEMS.registerSimpleBlockItem(COOKIE_BLOCK, () -> new Item.Properties().food(new FoodProperties(18, FoodConstants.saturationByModifier(18, 0.1F), false), Consumables.defaultFood().consumeSeconds(9.6F).build()));
 
 	public CookieBlock(IEventBus modEventBus) {
 		BLOCKS.register(modEventBus);
